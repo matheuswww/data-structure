@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main() {
-  FloatVector *vec = create(10);
+  FloatVector *vec = FloatVector_create(10);
   FloatVector_print(vec);
 
   FloatVector_append(vec,0.0);
