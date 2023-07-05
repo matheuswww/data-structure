@@ -65,19 +65,23 @@ void print_student(const Student *student) {
 } 
 
 int main() {
-  Book *book = create_book("Human Action",789,100);
-  print_book(book);
-  puts("");
-  book->price = 90;
-  print_book(book);
+  Book **vet = (Book **) calloc(3,sizeof(Book *));
+  vet[0] = create_book("Human Action",789,900);
+  vet[1] = create_book("Nicomachean Ethics",300,30);
+  vet[2] = create_book("Confessions",300,10);
 
-  Student *ted = create_student("ted",20,book);
-  print_student(ted);
+  for (int i = 0; i < 3; i++)
+  {
+    print_book(vet[i]);
+  };
 
-  destroy_book(&book);
+  for (int i = 0; i < 3; i++)
+  {
+    destroy_book(&vet[i]);
+    vet[i];
+  }
 
-  print_student(ted);
-
-  destroy_student(&ted);
+  free(vet);
+  vet = NULL;
   return 0;
 }
