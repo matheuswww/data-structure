@@ -12,7 +12,7 @@ libsd: \
 myapps: 
 	gcc ./${APPS}/app.c ./${OBJ}/float_vector.o -I ./${INCLUDE} -o ./${BIN}/app
 
-./${OBJ}%.o: ./${SRC}/%.c ./${INCLUDE}/%.h
+./${OBJ}/%.o: ./${SRC}/%.c ./${INCLUDE}/%.h
 	gcc -c $< -I ./${INCLUDE} -o $@
 
 run:
