@@ -116,6 +116,20 @@ void LinkedList_add_last(LinkedList *L,int val) {
   L->size++;
 }
 
+Node* LinkedList_return_pointer(LinkedList *L,int pos) {
+  if(LinkedList_is_empty(L)) {
+    LinkedList_ERROR("Error in 'LinkedList_return_pointer'");
+  } else {
+    Node* p = L->begin;
+    for (int i = 1; i <= L->size; i++) {
+     if(i == pos) {
+        return p;
+      }
+      p = p->next;
+    }
+  }
+}
+
 void LinkedList_remove_v1(LinkedList *L,int val) { 
   if (!LinkedList_is_empty(L)) {
     if(L->begin->val == val) {
@@ -242,29 +256,15 @@ int LinkedList_get_val(const LinkedList *L,int index) {
   }
 }
 
-Node* LinkedList_return_pointer(LinkedList *L,int pos) {
-  if(LinkedList_is_empty(L)) {
-    LinkedList_ERROR("Error in 'LinkedList_return_pointer'");
-  } else {
-    Node* p = L->begin;
-    for (int i = 1; i <= L->size; i++) {
-     if(i == pos) {
-        return p;
-      }
-      p = p->next;
-    }
-  }
-}
-
 void LinkedList_selection_sort(LinkedList *L) {
   int min_value = 0;
   Node* current_min_value_pos = 0;
   Node* j_pos = 0;
 
-  for (int j = 1; j <= L->size; j++) {
+  for (int j = 1; j <= L->size - 1; j++) {
     min_value = j;
     j_pos = LinkedList_return_pointer(L,min_value);
-    for (int i = j + 1; i <= L->size; i++) {
+    for (int i = j + 1; i <= L->size - 1; i++) {
       if(LinkedList_return_pointer(L,i)->val < LinkedList_return_pointer(L,min_value)->val) {
         current_min_value_pos = LinkedList_return_pointer(L,i);
         min_value = i;
@@ -274,6 +274,26 @@ void LinkedList_selection_sort(LinkedList *L) {
         int aux = j_pos->val;
         j_pos->val = current_min_value_pos->val;
         current_min_value_pos->val = aux;
+    }
+  }
+}
+
+void LinkedList_bubble_sort(LinkedList *L) {
+  int aux = 0;
+  Node* current_pos = 0;
+  Node* next_pos = 0;
+
+  for (int j = 1; j < L->size; j++)
+  {
+    for (int i = 1; i < L->size; i++)
+    {
+      current_pos = LinkedList_return_pointer(L,i);
+      next_pos = LinkedList_return_pointer(L,i + 1);
+      if(current_pos->val > next_pos->val) {
+        aux = current_pos->val;
+        current_pos->val = next_pos->val;
+        next_pos->val = aux;
+      }
     }
   }
 }

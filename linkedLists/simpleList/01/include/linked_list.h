@@ -25,4 +25,6 @@ size_t LinkedList_size(const LinkedList *L);
 int LinkedList_get_val(const LinkedList *L,int index);
 void LinkedList_selection_sort(LinkedList *L);
 Node* LinkedList_return_pointer(LinkedList *L,int val);
+void LinkedList_bubble_sort(LinkedList *L);
+void LinkedList_insert_sort(LinkedList *L);
 #endif
