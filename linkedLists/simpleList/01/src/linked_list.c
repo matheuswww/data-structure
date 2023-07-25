@@ -130,6 +130,22 @@ Node* LinkedList_return_pointer(LinkedList *L,int pos) {
   }
 }
 
+void LinkedList_insert_sort(LinkedList *L) {
+  int key = 0;
+  int j = 0;
+  int j_pos = 0;
+  for (int i = 2; i <= L->size; i++)
+  {
+    key = LinkedList_return_pointer(L,i)->val;
+    j = i - 1;
+    while (j >= 1 && LinkedList_return_pointer(L,j)->val > key) {
+      LinkedList_return_pointer(L,j + 1)->val = LinkedList_return_pointer(L,j)->val;
+      j = j - 1;
+    }
+    LinkedList_return_pointer(L,j + 1)->val = key;
+  }
+}
+
 void LinkedList_remove_v1(LinkedList *L,int val) { 
   if (!LinkedList_is_empty(L)) {
     if(L->begin->val == val) {
