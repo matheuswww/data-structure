@@ -74,10 +74,12 @@ void LinkedList_add_first(LinkedList *L,int val) {
   L->begin = p;
   L->size++;
 
-  printf("L->end: %d\n",L->end->val);
 }
 
 void LinkedList_print(const LinkedList *L) {
+  if(LinkedList_is_empty(L)) {
+    LinkedList_ERROR("LinkedList_print: ERROR list is empty");
+  }
   Node *p = L->begin;
 
   while(p != NULL) {
@@ -121,7 +123,7 @@ Node* LinkedList_return_pointer(LinkedList *L,int pos) {
     LinkedList_ERROR("Error in 'LinkedList_return_pointer'");
   } else {
     Node* p = L->begin;
-    for (int i = 1; i <= L->size; i++) {
+    for (int i = 0; i < L->size; i++) {
      if(i == pos) {
         return p;
       }
@@ -145,7 +147,7 @@ void LinkedList_insert_sort(LinkedList *L) {
     LinkedList_return_pointer(L,j + 1)->val = key;
   }
 }
-
+ 
 void LinkedList_remove_v1(LinkedList *L,int val) { 
   if (!LinkedList_is_empty(L)) {
     if(L->begin->val == val) {
@@ -272,6 +274,13 @@ int LinkedList_get_val(const LinkedList *L,int index) {
   }
 }
 
+
+
+
+
+
+
+
 void LinkedList_selection_sort(LinkedList *L) {
   int min_value = 0;
   Node* current_min_value_pos = 0;
@@ -311,5 +320,59 @@ void LinkedList_bubble_sort(LinkedList *L) {
         next_pos->val = aux;
       }
     }
+  }
+}
+
+
+LinkedList* LinkedList_get_position(LinkedList* L, int init_pos, int end_pos) {
+  if (init_pos < 0 || end_pos > L->size || init_pos >= end_pos) {
+    LinkedList_ERROR("LinkedList_get_position: ERROR invalid position");
+  }
+
+  LinkedList* new_list = LinkedList_create();
+  Node* p = LinkedList_return_pointer(L, init_pos);
+
+  for (int i = init_pos; i < end_pos; i++) {
+    LinkedList_add_last(new_list, p->val);
+    p = p->next;
+  }
+
+  return new_list;
+}
+
+
+void LinkedList_merge(LinkedList *L, int start, int end, int middle) {
+  LinkedList *left = LinkedList_get_position(L, start, middle);
+  LinkedList *right = LinkedList_get_position(L, middle, end);
+
+  int top_left = 0;
+  int top_right = 0;
+  
+  for (int i = start; i < end; i++) {
+    if (top_left >= left->size) {
+      LinkedList_return_pointer(L, i)->val = LinkedList_return_pointer(right, top_right)->val;
+      top_right++;
+    } else if (top_right >= right->size) {
+      LinkedList_return_pointer(L, i)->val = LinkedList_return_pointer(left, top_left)->val;
+      top_left++;
+    } else if (LinkedList_return_pointer(left, top_left)->val < LinkedList_return_pointer(right, top_right)->val) {
+      LinkedList_return_pointer(L, i)->val = LinkedList_return_pointer(left, top_left)->val;
+      top_left++;
+    } else {
+      LinkedList_return_pointer(L, i)->val = LinkedList_return_pointer(right, top_right)->val;
+      top_right++;
+    }
+  }
+
+  LinkedList_destroy(&left);
+  LinkedList_destroy(&right);
+}
+
+void LinkedList_merge_sort(LinkedList *L,int start,int end) {
+  if((end - start) > 1) {
+    int middle = (start + end) / 2;
+    LinkedList_merge_sort(L,start,middle);
+    LinkedList_merge_sort(L,middle,end);
+    LinkedList_merge(L,start,end,middle);
   }
 }

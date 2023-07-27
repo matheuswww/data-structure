@@ -27,4 +27,7 @@ void LinkedList_selection_sort(LinkedList *L);
 Node* LinkedList_return_pointer(LinkedList *L,int val);
 void LinkedList_bubble_sort(LinkedList *L);
 void LinkedList_insert_sort(LinkedList *L);
+LinkedList* LinkedList_get_position(LinkedList *L,int init_pos,int end_pos);
+void LinkedList_merge_sort(LinkedList *L,int start,int end);
+void LinkedList_merge(LinkedList *L,int start,int middle,int end); 
 #endif
