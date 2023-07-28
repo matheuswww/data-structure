@@ -376,3 +376,31 @@ void LinkedList_merge_sort(LinkedList *L,int start,int end) {
     LinkedList_merge(L,start,end,middle);
   }
 }
+
+int LinkedList_partition(LinkedList *L,int start,int end) {
+  int pivot = LinkedList_return_pointer(L,end)->val;
+  int aux = 0;
+  int i = start;
+
+  for (int j = start; j < end; j++) {
+    if (LinkedList_return_pointer(L,j)->val <= pivot) {
+      aux = LinkedList_return_pointer(L,j)->val;
+      LinkedList_return_pointer(L,j)->val = LinkedList_return_pointer(L,i)->val;
+      LinkedList_return_pointer(L,i)->val = aux;
+      i++;
+    }    
+  }
+  aux = LinkedList_return_pointer(L,i)->val; 
+  LinkedList_return_pointer(L,i)->val = LinkedList_return_pointer(L,end)->val;
+  LinkedList_return_pointer(L,end)->val = aux;
+  return i;
+}
+
+void LinkedList_quick_sort(LinkedList *L,int init,int end) {
+  int p = 0;
+  if(init < end) {
+    p = LinkedList_partition(L,init,end);
+    LinkedList_quick_sort(L,init,p - 1);
+    LinkedList_quick_sort(L,p + 1,end);
+  }
+}
