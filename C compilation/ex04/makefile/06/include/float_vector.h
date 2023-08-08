@@ -1,5 +1,3 @@
-
-
 typedef struct float_vector FloatVector;
 
 FloatVector *FloatVector_create(int capacity);

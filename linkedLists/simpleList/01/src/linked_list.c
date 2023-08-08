@@ -135,7 +135,6 @@ Node* LinkedList_return_pointer(LinkedList *L,int pos) {
 void LinkedList_insert_sort(LinkedList *L) {
   int key = 0;
   int j = 0;
-  int j_pos = 0;
   for (int i = 2; i <= L->size; i++)
   {
     key = LinkedList_return_pointer(L,i)->val;

@@ -10,7 +10,7 @@ LIBS = -lm -lsd -L ${LIB}
 
 all: libsd myapps
 
-libsd: ${OBJ}/float_vector.o ${OBJ}/linked_list.o
+libsd: ${OBJ}/linked_list.o
 	ar -rcs ${LIB}/libsd.a ${OBJ}/*.o
 
 myapps: ${BIN}/test_linked_list

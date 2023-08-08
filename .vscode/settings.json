@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "linked_list.h": "c",
+    "stdio.h": "c",
+    "stddef.h": "c",
+    "stdbool.h": "c",
+    "self_organized_linkedlist.h": "c",
+    "format": "c"
+  }
+}
