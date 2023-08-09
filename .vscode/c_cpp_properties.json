@@ -6,7 +6,10 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/linkedLists/simpleList/01/include",
                 "${workspaceFolder}/self_organized_list/include",
-                "${workspaceFolder}/self_organized_list/src"
+                "${workspaceFolder}/self_organized_list/src",
+                "${workspaceFolder}/linkedLists/circList/01/include",
+                "${workspaceFolder}/stacks/staticStack/01/include",
+                "${workspaceFolder}/stacks/dynamicStack/01/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

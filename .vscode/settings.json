@@ -5,6 +5,11 @@
     "stddef.h": "c",
     "stdbool.h": "c",
     "self_organized_linkedlist.h": "c",
-    "format": "c"
+    "format": "c",
+    "double_linked_list.h": "c",
+    "stdlib.h": "c",
+    "static_stack.h": "c",
+    "dynamic_stack.h": "c",
+    "static_enqueue.h": "c"
   }
 }
