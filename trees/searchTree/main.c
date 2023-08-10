@@ -48,9 +48,51 @@ void Tree_print(PONT root) {
   }
 }
 
-int nodeCount(PONT root) {
+int Tree_count(PONT root) {
   if(!root) return 0;
-  return(nodeCount(root->left)) + 1 + nodeCount(root->right);
+  return(Tree_count(root->left)) + 1 + Tree_count(root->right);
+}
+
+PONT Tree_search_node(PONT root,KEYTYPE key,PONT *parent) {
+  PONT current = root;
+  *parent = NULL;
+  while(current) {
+    if(current->key == key) return current;
+    *parent = current;
+    if(key < current->key) current = current->left;
+    else current = current->right;
+  }
+  return NULL;
+}
+
+PONT Tree_delete(PONT root,KEYTYPE key) {
+  PONT parent,no,p,q;
+  no = Tree_search_node(root,key,&parent);
+  if(no == NULL) return root;
+  if(!no->left || !no->right) { 
+    if(!no->left) q = no->right;
+    else q = no->left;
+  } else {
+    p = no;
+    q = no->left;
+    while (q->right) {
+      p = q;
+      q = q->right;
+   }
+    if(p != no) {
+      p->right = q->left;
+      q->left = no->left;
+    }
+    q->right = no->right; 
+  }
+  if(!parent) {
+    free(no);
+    return q;
+  }
+  if(key < parent->key) parent->left = q;
+  else parent->right = q;
+  free(no);
+  return root; 
 }
 
 int main() {
@@ -60,7 +102,7 @@ int main() {
   PONT node2 = Node_create(16);
   root = Tree_add(root,node2);
 
+  Tree_delete(root,16);
   Tree_print(root);
-  printf("%d\n",nodeCount(root));
-
+  printf("\n%d\n",Tree_count(root)); 
 }
