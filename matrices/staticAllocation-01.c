@@ -4,7 +4,10 @@
 int main() {
   int n_rows = 2;
   int n_cols = 3;
-  int m[2][3] = {{0,1,2},{3,4,5}};
+  int m[2][3] = {
+    {0,1,2},
+    {3,4,5}
+  };
 
   printf("&m = %p,m = %p\n\n",&m,m);
 
