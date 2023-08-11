@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#define WHITE 0
+#define YELLOW 1
+#define RED 2
+
 typedef int WEIGHTTYPE;
 
 typedef struct adjacent {
@@ -69,6 +73,32 @@ void Graph_print(GRAPH *gr) {
       ad = ad->next;
     }
     printf("\n");
+  }
+}
+
+void visitP(GRAPH *g,int u,int *color) {
+  color[u] = YELLOW;
+  ADJACENT *v = g->adj[u].head;
+  while(v) {
+    if(color[v->vertex] == WHITE) {
+      visitP(g,v->vertex,color);
+    }
+    v = v->next;
+  }
+  color[u] = RED;
+}
+
+void Graph_depth(GRAPH *g) {
+  int color[g->vertex];
+
+  int u;
+  for(u = 0;u<g->vertex;u++) {
+    color[u] = WHITE;
+  }
+  for(u = 0;u<g->vertex;u++) {
+    if(color[u] == WHITE) {
+      visitP(g,u,color);
+    }
   }
 }
 
